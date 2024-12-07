@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:test_ads/normal_native_ads.dart';
 
+import 'preload_native_ads.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await MobileAds.instance.initialize();
@@ -57,6 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             NormalAdsNative(
                 templateType: TemplateAdType.fullscreenPortrait, adUnitId: 'ca-app-pub-3940256099942544/2247696110'),
+            // PreloadNativeAds(name: 'test'),
           ],
         ),
       ),
