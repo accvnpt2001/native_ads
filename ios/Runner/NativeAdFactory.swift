@@ -6,8 +6,9 @@
 //
 
 import google_mobile_ads
+import Flutter
 
-
+var adsChannel : FlutterMethodChannel = FlutterMethodChannel()
 class NativeSmallAdFactory : FLTNativeAdFactory {
     
     func createNativeAd(_ nativeAd: GADNativeAd,
@@ -22,8 +23,7 @@ class NativeSmallAdFactory : FLTNativeAdFactory {
         
         (nativeAdView.iconView as! UIImageView).image = nativeAd.icon?.image
         nativeAdView.iconView!.isHidden = nativeAd.icon == nil
-        
-
+        adsChannel.invokeMethod("PassAdsData", arguments: "\((nativeAdView.headlineView as! UILabel).text)")
 
         (nativeAdView.callToActionView as? UIButton)?.setTitle(nativeAd.callToAction?.uppercased(), for: .normal)
         (nativeAdView.callToActionView as? UIButton)?.titleLabel?.adjustsFontSizeToFitWidth = true
@@ -48,7 +48,7 @@ class NativeMediumAdFactory : FLTNativeAdFactory {
 //
         (nativeAdView.headlineView as! UILabel).text = nativeAd.headline
         nativeAdView.mediaView?.mediaContent = nativeAd.mediaContent
-
+        adsChannel.invokeMethod("PassAdsData", arguments: "\((nativeAdView.headlineView as! UILabel).text)")
         //        (nativeAdView.starRatingView as? UIImageView)?.image = imageOfStars(fromStarRating: nativeAd.sta)
         //        nativeAdView.starRatingView?.isHidden = nativeAd.starRating == nil
 
@@ -79,7 +79,7 @@ class NativeFullScreenAdSquareFactory : FLTNativeAdFactory {
                         customOptions: [AnyHashable : Any]? = nil) -> GADNativeAdView? {
         let nibView = Bundle.main.loadNibNamed("FullScreenAdSquare", owner: nil, options: nil)!.first
         let nativeAdView = nibView as! GADNativeAdView
-        
+        adsChannel.invokeMethod("PassAdsData", arguments: "\((nativeAdView.headlineView as! UILabel).text)")
         //Headline
         (nativeAdView.headlineView as! UILabel).text = nativeAd.headline
         
@@ -132,7 +132,7 @@ class NativeFullScreenAdLandScapeFactory : FLTNativeAdFactory {
         
         //Headline
         (nativeAdView.headlineView as! UILabel).text = nativeAd.headline
-        
+        adsChannel.invokeMethod("PassAdsData", arguments: "\((nativeAdView.headlineView as! UILabel).text)")
         
         //Body
         (nativeAdView.bodyView as! UILabel).text = nativeAd.body
@@ -182,7 +182,7 @@ class NativeFullScreenAdPortraitFactory : FLTNativeAdFactory {
         
         //Headline
         (nativeAdView.headlineView as! UILabel).text = nativeAd.headline
-        
+        adsChannel.invokeMethod("PassAdsData", arguments: "\((nativeAdView.headlineView as! UILabel).text)")
         //Body
         (nativeAdView.bodyView as! UILabel).text = nativeAd.body
         nativeAdView.bodyView!.isHidden = nativeAd.body == nil

@@ -10,8 +10,10 @@ import android.widget.TextView
 import com.google.android.gms.ads.nativead.MediaView
 import com.google.android.gms.ads.nativead.NativeAd
 import com.google.android.gms.ads.nativead.NativeAdView
+import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugins.googlemobileads.GoogleMobileAdsPlugin
 
+var adsChannel : MethodChannel? = null
 
 class NativeAdsFactoryMedium(private val context: Context) : GoogleMobileAdsPlugin.NativeAdFactory {
 
@@ -32,6 +34,7 @@ class NativeAdsFactoryMedium(private val context: Context) : GoogleMobileAdsPlug
             val headlineView = findViewById<TextView>(R.id.headline_medium_ads)
             headlineView.text = nativeAd.headline
             this.headlineView = headlineView
+            adsChannel?.invokeMethod("PassAdsData", headlineView.text)
 
             val bodyView = findViewById<TextView>(R.id.body_medium_ads)
             with(bodyView) {
@@ -76,6 +79,7 @@ class NativeAdsFactorySmall(private val context: Context) : GoogleMobileAdsPlugi
             val headlineView = findViewById<TextView>(R.id.headline_small_ads)
             headlineView.text = nativeAd.headline
             this.headlineView = headlineView
+            adsChannel?.invokeMethod("PassAdsData", headlineView.text)
 
             val bodyView = findViewById<TextView>(R.id.body_small_ads)
             with(bodyView) {
@@ -125,6 +129,7 @@ class NativeAdsFactoryFullSquare(private val context: Context) : GoogleMobileAds
             val headlineView = findViewById<TextView>(R.id.headline_square_ads)
             headlineView.text = nativeAd.headline
             this.headlineView = headlineView
+            adsChannel?.invokeMethod("PassAdsData", headlineView.text)
 
             val bodyView = findViewById<TextView>(R.id.body_square_ads)
             with(bodyView) {
@@ -172,10 +177,10 @@ class NativeAdsFactoryFullLandScape(private val context: Context) : GoogleMobile
             mediaView.mediaContent = media
             this.mediaView = mediaView
 
-
             val headlineView = findViewById<TextView>(R.id.headline_landscape_ads)
             headlineView.text = nativeAd.headline
             this.headlineView = headlineView
+            adsChannel?.invokeMethod("PassAdsData", headlineView.text)
 
             val bodyView = findViewById<TextView>(R.id.body_landscape_ads)
             with(bodyView) {
@@ -226,6 +231,7 @@ class NativeAdsFactoryFullPortrait(private val context: Context) : GoogleMobileA
             val headlineView = findViewById<TextView>(R.id.headline_portrait_ads)
             headlineView.text = nativeAd.headline
             this.headlineView = headlineView
+            adsChannel?.invokeMethod("PassAdsData", headlineView.text)
 
             val bodyView = findViewById<TextView>(R.id.body_portrait_ads)
             with(bodyView) {

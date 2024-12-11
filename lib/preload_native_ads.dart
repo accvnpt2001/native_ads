@@ -2,6 +2,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 import 'normal_native_ads.dart';
@@ -25,7 +26,16 @@ class PreloadNativeAdsManager {
       required TemplateAdType templateType,
       Function(Ad)? onAdClicked,
       Function(Ad)? onAdOpened,
+      Function(String)? onGetTitle,
       Function(Ad, double, PrecisionType, String)? onPaidEvent}) {
+    const MethodChannel channel = MethodChannel('AdsChannel');
+    channel.setMethodCallHandler((call) async {
+      if (call.method == "PassAdsData") {
+        final title = call.arguments as String;
+        onGetTitle?.call(title);
+      }
+      return;
+    });
     NativeAd(
       adUnitId: adUnitId,
       factoryId: switch (templateType) {
