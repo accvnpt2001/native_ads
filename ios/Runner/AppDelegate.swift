@@ -4,14 +4,19 @@ import google_mobile_ads
 
 @main
 @objc class AppDelegate: FlutterAppDelegate {
-  override func application(
-    _ application: UIApplication,
-    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
-  ) -> Bool {
-    GeneratedPluginRegistrant.register(with: self)
-    registerNativeAds()
-    return super.application(application, didFinishLaunchingWithOptions: launchOptions)
-  }
+    override func application(
+        _ application: UIApplication,
+        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
+    ) -> Bool {
+        GeneratedPluginRegistrant.register(with: self)
+        let cntrl : FlutterViewController = self.window?.rootViewController as! FlutterViewController
+        adsChannel = FlutterMethodChannel(
+            name: "AdsChannel",
+            binaryMessenger: cntrl.binaryMessenger
+        )
+        registerNativeAds()
+        return super.application(application, didFinishLaunchingWithOptions: launchOptions)
+    }
     
     
     private func registerNativeAds() {

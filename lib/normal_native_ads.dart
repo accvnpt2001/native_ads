@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 enum TemplateAdType { small, medium, fullscreenSquare, fullscreenLandScape, fullscreenPortrait }
@@ -10,6 +11,7 @@ class NormalAdsNative extends StatefulWidget {
   final Widget? loadingWidget;
   final EdgeInsetsGeometry? padding;
   final double? height;
+  final void Function(String)? onGetTitle;
   final void Function(Ad)? onAdClicked;
   final void Function(Ad)? onAdOpened;
   final void Function(Ad, double, PrecisionType, String)? onPaidEvent;
@@ -25,6 +27,7 @@ class NormalAdsNative extends StatefulWidget {
     this.onAdClicked,
     this.onAdOpened,
     this.onPaidEvent,
+    this.onGetTitle,
   });
 
   @override
@@ -41,7 +44,14 @@ class _NormalAdsNativeState extends State<NormalAdsNative> with AutomaticKeepAli
   @override
   void initState() {
     super.initState();
-
+    const MethodChannel channel = MethodChannel('AdsChannel');
+    channel.setMethodCallHandler((call) async {
+      if (call.method == "PassAdsData") {
+        final title = call.arguments as String;
+        widget.onGetTitle?.call(title);
+      }
+      return;
+    });
     _nativeAd = NativeAd(
       adUnitId: widget.adUnitId,
       factoryId: _getFactoryId(widget.templateType), // Use a helper method to get factoryId
