@@ -89,6 +89,9 @@
                         android:layout_height="48dp"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="10dp"
+                        android:background="@drawable/rounded_img"
+                        android:backgroundTint="@android:color/white"
+                        android:clipToOutline="true"
                         android:scaleType="fitXY"
                         tools:background="#EDEDED" />
 
@@ -96,6 +99,7 @@
                         android:id="@+id/attribution_square_ads"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
+                        android:layout_marginLeft="10dp"
                         android:layout_gravity="center_vertical"
                         android:background="#F19938"
                         android:gravity="center"

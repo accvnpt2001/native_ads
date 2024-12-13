@@ -72,6 +72,9 @@
                         android:layout_height="48dp"
                         android:layout_gravity="center_vertical"
                         android:layout_marginRight="10dp"
+                        android:background="@drawable/rounded_img"
+                        android:backgroundTint="@android:color/white"
+                        android:clipToOutline="true"
                         android:scaleType="fitXY"
                         tools:background="#EDEDED" />
 

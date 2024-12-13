@@ -80,10 +80,10 @@
                     </userDefinedRuntimeAttributes>
                 </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qim-k2-0nH" customClass="GADMediaView">
-                    <rect key="frame" x="42" y="0.0" width="310" height="148"/>
+                    <rect key="frame" x="42" y="6" width="310" height="144"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="148" id="4jZ-wS-5bc"/>
+                        <constraint firstAttribute="height" constant="144" id="4jZ-wS-5bc"/>
                     </constraints>
                 </view>
             </subviews>
@@ -95,7 +95,7 @@
                 <constraint firstItem="lp1-oz-XOs" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="KcM-Vl-dSN"/>
                 <constraint firstAttribute="trailing" secondItem="E5w-YA-UY8" secondAttribute="trailing" constant="10" id="N0E-Bd-srq"/>
                 <constraint firstItem="qim-k2-0nH" firstAttribute="leading" secondItem="lp1-oz-XOs" secondAttribute="trailing" constant="8" symbolic="YES" id="T5c-lx-lra"/>
-                <constraint firstItem="qim-k2-0nH" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="V2Z-ye-lAw"/>
+                <constraint firstItem="qim-k2-0nH" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="6" id="V2Z-ye-lAw"/>
                 <constraint firstItem="PEQ-D9-2Vv" firstAttribute="leading" secondItem="iNa-bH-h1m" secondAttribute="trailing" constant="6" id="fl1-er-bIh"/>
                 <constraint firstAttribute="bottom" secondItem="E5w-YA-UY8" secondAttribute="bottom" constant="8" id="jZc-08-lxB"/>
                 <constraint firstItem="E5w-YA-UY8" firstAttribute="top" secondItem="iNa-bH-h1m" secondAttribute="bottom" constant="18" id="tB0-7z-z5t"/>
@@ -118,7 +118,7 @@
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="opaqueSeparatorColor">
-            <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="scrollViewTexturedBackgroundColor">
             <color red="0.43529411764705883" green="0.44313725490196076" blue="0.47450980392156861" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

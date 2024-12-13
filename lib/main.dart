@@ -58,7 +58,9 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             NormalAdsNative(
-                templateType: TemplateAdType.fullscreenPortrait, adUnitId: 'ca-app-pub-3940256099942544/2247696110'),
+                color: Colors.amber,
+                templateType: TemplateAdType.medium,
+                adUnitId: 'ca-app-pub-3940256099942544/2247696110'),
             // PreloadNativeAds(name: 'test'),
           ],
         ),

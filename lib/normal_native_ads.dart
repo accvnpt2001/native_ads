@@ -7,7 +7,7 @@ enum TemplateAdType { small, medium, fullscreenSquare, fullscreenLandScape, full
 class NormalAdsNative extends StatefulWidget {
   final TemplateAdType templateType;
   final String adUnitId;
-  final BoxDecoration? decoration;
+  final Color? color;
   final Widget? loadingWidget;
   final EdgeInsetsGeometry? padding;
   final double? height;
@@ -20,7 +20,7 @@ class NormalAdsNative extends StatefulWidget {
     super.key,
     required this.templateType,
     required this.adUnitId,
-    this.decoration,
+    this.color,
     this.loadingWidget,
     this.padding,
     this.height,
@@ -59,11 +59,11 @@ class _NormalAdsNativeState extends State<NormalAdsNative> with AutomaticKeepAli
       // nativeTemplateStyle: NativeTemplateStyle(templateType: TemplateType.medium),
       listener: NativeAdListener(
         onAdLoaded: (ad) async {
-          await Future.delayed(const Duration(milliseconds: 200));
-          setState(() {
-            isNativeAdReady = true;
-            _nativeAd = ad as NativeAd;
-          });
+          _nativeAd = ad as NativeAd;
+          isNativeAdReady = true;
+          setState(() {});
+          await Future.delayed(const Duration(milliseconds: 500));
+          setState(() {});
         },
         onAdFailedToLoad: (ad, error) {
           ad.dispose(); // Dispose of the ad if it fails to load
@@ -97,7 +97,9 @@ class _NormalAdsNativeState extends State<NormalAdsNative> with AutomaticKeepAli
     final mediaQuery = MediaQuery.of(context); // Correct usage of MediaQuery
     return Container(
       padding: widget.padding,
-      decoration: widget.decoration,
+      decoration: BoxDecoration(
+        color: widget.color,
+      ),
       child: isNativeAdReady
           ? FittedBox(
               fit: BoxFit.scaleDown,
@@ -132,7 +134,7 @@ class _NormalAdsNativeState extends State<NormalAdsNative> with AutomaticKeepAli
   double _getAdHeight(MediaQueryData mediaQuery) {
     switch (widget.templateType) {
       case TemplateAdType.medium:
-        return 266;
+        return 270;
       case TemplateAdType.fullscreenSquare:
       case TemplateAdType.fullscreenLandScape:
       case TemplateAdType.fullscreenPortrait:

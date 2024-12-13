@@ -76,7 +76,7 @@ class PreloadNativeAdsModel {
 
 class PreloadNativeAds extends StatefulWidget {
   final String name;
-  final BoxDecoration? decoration;
+  final Color? backgroundColor;
   final Widget? loadingWidget;
   final EdgeInsetsGeometry? padding;
   final double? height;
@@ -84,7 +84,7 @@ class PreloadNativeAds extends StatefulWidget {
   const PreloadNativeAds({
     super.key,
     required this.name,
-    this.decoration,
+    this.backgroundColor,
     this.loadingWidget,
     this.padding,
     this.height,
@@ -127,7 +127,9 @@ class _PreloadNativeAdsState extends State<PreloadNativeAds> {
   Widget build(BuildContext context) {
     return Container(
         padding: widget.padding,
-        decoration: widget.decoration,
+        decoration: BoxDecoration(
+          color: widget.backgroundColor,
+        ),
         child: data != null
             ? FittedBox(
                 fit: BoxFit.scaleDown,

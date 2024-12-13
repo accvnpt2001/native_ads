@@ -1,6 +1,7 @@
 package com.codelab.flutter.admobinlineads
 
 import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -42,6 +43,7 @@ class NativeAdsFactoryMedium(private val context: Context) : GoogleMobileAdsPlug
                 visibility = if (nativeAd.body != null && nativeAd.body!!.isNotEmpty()) View.VISIBLE else View.INVISIBLE
             }
             this.bodyView = bodyView
+            bodyView.clipToOutline = true
 
             val ctaView = findViewById<Button>(R.id.cta_medium_ads)
             ctaView.text = nativeAd.callToAction
@@ -57,6 +59,26 @@ class NativeAdsFactoryMedium(private val context: Context) : GoogleMobileAdsPlug
                 iconView.setImageDrawable(icon.drawable)
             }
             nativeAdView.iconView = iconView
+
+            val stars = listOf<TextView>(
+                findViewById(R.id.star1),
+                findViewById(R.id.star2),
+                findViewById(R.id.star3),
+                findViewById(R.id.star4),
+                findViewById(R.id.star5)
+            )
+
+            var starRate : Double = 5.0
+            if(nativeAd.starRating != null) {
+                starRate = nativeAd.starRating!!
+            }
+            for (i in stars.indices) {
+                if (i <= starRate) {
+                    stars[i].setTextColor(Color.parseColor("#2fd696"))
+                } else {
+                    stars[i].setTextColor(Color.GRAY)
+                }
+            }
 
             setNativeAd(nativeAd)
         }
@@ -87,6 +109,7 @@ class NativeAdsFactorySmall(private val context: Context) : GoogleMobileAdsPlugi
                 visibility = if (nativeAd.body != null && nativeAd.body!!.isNotEmpty()) View.VISIBLE else View.INVISIBLE
             }
             this.bodyView = bodyView
+            bodyView.clipToOutline = true
 
             val ctaView = findViewById<Button>(R.id.cta_small_ads)
             ctaView.text = nativeAd.callToAction
