@@ -2,13 +2,16 @@
 //  NativeAdFactory.swift
 //  Runner
 //
-//  Created by Nguyễn Linh on 18/6/24.
-//
 
 import google_mobile_ads
 import Flutter
 
 var adsChannel : FlutterMethodChannel = FlutterMethodChannel()
+var buttonBkg : String = "#ed6f65"
+var buttonTextColor : String = "#ffffff"
+var headlineTextColor = "#000000"
+var bodyTextColor = "#5b5b5b"
+
 class NativeSmallAdFactory : FLTNativeAdFactory {
     
     func createNativeAd(_ nativeAd: GADNativeAd,
@@ -31,7 +34,12 @@ class NativeSmallAdFactory : FLTNativeAdFactory {
         nativeAdView.callToActionView?.isHidden = nativeAd.callToAction == nil
         
         nativeAdView.callToActionView?.isUserInteractionEnabled = false
-
+        
+        // set Color
+        nativeAdView.callToActionView?.backgroundColor = UIColor(hex: buttonBkg)
+        (nativeAdView.callToActionView as? UIButton)?.setTitleColor(UIColor(hex: buttonTextColor), for: .normal)
+        (nativeAdView.headlineView as! UILabel).textColor = UIColor(hex: headlineTextColor)
+        (nativeAdView.bodyView as! UILabel).textColor = UIColor(hex: bodyTextColor)
 
         nativeAdView.nativeAd = nativeAd
         
@@ -49,8 +57,6 @@ class NativeMediumAdFactory : FLTNativeAdFactory {
         (nativeAdView.headlineView as! UILabel).text = nativeAd.headline
         nativeAdView.mediaView?.mediaContent = nativeAd.mediaContent
         adsChannel.invokeMethod("PassAdsData", arguments: "\((nativeAdView.headlineView as! UILabel).text)")
-        //        (nativeAdView.starRatingView as? UIImageView)?.image = imageOfStars(fromStarRating: nativeAd.sta)
-        //        nativeAdView.starRatingView?.isHidden = nativeAd.starRating == nil
 
         (nativeAdView.bodyView as! UILabel).text = nativeAd.body
         nativeAdView.bodyView!.isHidden = nativeAd.body == nil
@@ -63,12 +69,16 @@ class NativeMediumAdFactory : FLTNativeAdFactory {
         nativeAdView.callToActionView?.isHidden = nativeAd.callToAction == nil
 
         nativeAdView.callToActionView?.isUserInteractionEnabled = false
-
+        
 
         nativeAdView.nativeAd = nativeAd
-
-
-
+        
+        // set Color
+        nativeAdView.callToActionView?.backgroundColor = UIColor(hex: buttonBkg)
+        (nativeAdView.callToActionView as? UIButton)?.setTitleColor(UIColor(hex: buttonTextColor), for: .normal)
+        (nativeAdView.headlineView as! UILabel).textColor = UIColor(hex: headlineTextColor)
+        (nativeAdView.bodyView as! UILabel).textColor = UIColor(hex: bodyTextColor)
+        
         return nativeAdView
     }
 }
@@ -115,6 +125,11 @@ class NativeFullScreenAdSquareFactory : FLTNativeAdFactory {
             nativeAdView.mediaView?.contentMode = .scaleAspectFill
             nativeAdView.mediaView?.clipsToBounds = true
         }
+        // set Color
+        nativeAdView.callToActionView?.backgroundColor = UIColor(hex: buttonBkg)
+        (nativeAdView.callToActionView as? UIButton)?.setTitleColor(UIColor(hex: buttonTextColor), for: .normal)
+        (nativeAdView.headlineView as! UILabel).textColor = UIColor(hex: headlineTextColor)
+        (nativeAdView.bodyView as! UILabel).textColor = UIColor(hex: bodyTextColor)
         
         nativeAdView.nativeAd = nativeAd
         
@@ -165,6 +180,12 @@ class NativeFullScreenAdLandScapeFactory : FLTNativeAdFactory {
             nativeAdView.mediaView?.contentMode = .scaleAspectFill
             nativeAdView.mediaView?.clipsToBounds = true
         }
+        
+        // set Color
+        nativeAdView.callToActionView?.backgroundColor = UIColor(hex: buttonBkg)
+        (nativeAdView.callToActionView as? UIButton)?.setTitleColor(UIColor(hex: buttonTextColor), for: .normal)
+        (nativeAdView.headlineView as! UILabel).textColor = UIColor(hex: headlineTextColor)
+        (nativeAdView.bodyView as! UILabel).textColor = UIColor(hex: bodyTextColor)
         
         nativeAdView.nativeAd = nativeAd
         
@@ -217,6 +238,12 @@ class NativeFullScreenAdPortraitFactory : FLTNativeAdFactory {
         if nativeAdView.mediaView != nil {
             nativeAdView.sendSubviewToBack(nativeAdView.mediaView!)
         }
+        
+        // set Color
+        nativeAdView.callToActionView?.backgroundColor = UIColor(hex: buttonBkg)
+        (nativeAdView.callToActionView as? UIButton)?.setTitleColor(UIColor(hex: buttonTextColor), for: .normal)
+        (nativeAdView.headlineView as! UILabel).textColor = UIColor(hex: headlineTextColor)
+        (nativeAdView.bodyView as! UILabel).textColor = UIColor(hex: bodyTextColor)
         
         nativeAdView.nativeAd = nativeAd
         

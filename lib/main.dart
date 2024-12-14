@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:test_ads/normal_native_ads.dart';
-
-import 'preload_native_ads.dart';
+import 'package:test_ads/src/normal_native_ads.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await MobileAds.instance.initialize();
+
   MobileAds.instance.updateRequestConfiguration(
     RequestConfiguration(
       testDeviceIds: ['D14B3B92C5B0532790311D6A1FD91CB1'],
@@ -58,7 +57,9 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             NormalAdsNative(
-                color: Colors.amber,
+                starColor: Colors.cyan,
+                buttonBackgroundColor: Colors.cyan,
+                backgroundColor: Colors.white,
                 templateType: TemplateAdType.medium,
                 adUnitId: 'ca-app-pub-3940256099942544/2247696110'),
             // PreloadNativeAds(name: 'test'),

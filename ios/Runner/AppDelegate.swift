@@ -14,6 +14,29 @@ import google_mobile_ads
             name: "AdsChannel",
             binaryMessenger: cntrl.binaryMessenger
         )
+        
+        adsChannel.setMethodCallHandler {(call: FlutterMethodCall, result: FlutterResult) -> Void in
+            switch call.method {
+            case "set_color":
+                print(call.arguments)
+                if let args = call.arguments as? Dictionary<String, Any>,
+                   let colorButton = args["button_bkg"] as? String,
+                   let colorTextButton = args["button_title"] as? String,
+                   let headlineColor = args["title"] as? String,
+                   let bodyColor = args["subtitle"] as? String {
+                    buttonBkg = colorButton
+                    buttonTextColor = colorTextButton
+                    headlineTextColor = headlineColor
+                    bodyTextColor = bodyColor
+                    result(nil)
+                } else {
+                    result(FlutterError.init(code: "errorSetDebug", message: "data or format error", details: nil))
+                }
+            default:
+                break;
+            }
+        }
+        
         registerNativeAds()
         return super.application(application, didFinishLaunchingWithOptions: launchOptions)
     }

@@ -2,9 +2,9 @@ package com.codelab.flutter.admobinlineads
 
 import android.content.Context
 import android.graphics.Color
+import android.graphics.PorterDuff
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -15,6 +15,13 @@ import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugins.googlemobileads.GoogleMobileAdsPlugin
 
 var adsChannel : MethodChannel? = null
+var buttonBackgroundColor = "#f6546a"
+var buttonTextColor = "#ffffff"
+var headlineColor = "#000000"
+var bodyColor = "#5b5b5b"
+var adTagBackground = "#ed6f65"
+var adTagTextColor = "#ffffff"
+var starColor = "#2fd696"
 
 class NativeAdsFactoryMedium(private val context: Context) : GoogleMobileAdsPlugin.NativeAdFactory {
 
@@ -26,7 +33,9 @@ class NativeAdsFactoryMedium(private val context: Context) : GoogleMobileAdsPlug
             .inflate(R.layout.medium_native_ads, null) as NativeAdView
 
         with(nativeAdView) {
-
+            val adTagView = findViewById<TextView>(R.id.ad_text_medium_ads)
+            adTagView.setTextColor(Color.parseColor(adTagTextColor))
+            adTagView.setBackgroundColor(Color.parseColor(adTagBackground))
             val mediaView = findViewById<MediaView>(R.id.ad_media_2)
             val media = nativeAd.mediaContent
             mediaView.mediaContent = media
@@ -34,6 +43,7 @@ class NativeAdsFactoryMedium(private val context: Context) : GoogleMobileAdsPlug
 
             val headlineView = findViewById<TextView>(R.id.headline_medium_ads)
             headlineView.text = nativeAd.headline
+            headlineView.setTextColor(Color.parseColor(headlineColor))
             this.headlineView = headlineView
             adsChannel?.invokeMethod("PassAdsData", headlineView.text)
 
@@ -42,11 +52,13 @@ class NativeAdsFactoryMedium(private val context: Context) : GoogleMobileAdsPlug
                 text = nativeAd.body
                 visibility = if (nativeAd.body != null && nativeAd.body!!.isNotEmpty()) View.VISIBLE else View.INVISIBLE
             }
+            bodyView.setTextColor(Color.parseColor(bodyColor))
             this.bodyView = bodyView
-            bodyView.clipToOutline = true
 
             val ctaView = findViewById<Button>(R.id.cta_medium_ads)
             ctaView.text = nativeAd.callToAction
+            ctaView.setTextColor(Color.parseColor(buttonTextColor))
+            ctaView.background.setColorFilter(Color.parseColor(buttonBackgroundColor), PorterDuff.Mode.SRC)
             this.callToActionView = ctaView
 
             val attributionViewLarge: TextView = nativeAdView
@@ -74,7 +86,7 @@ class NativeAdsFactoryMedium(private val context: Context) : GoogleMobileAdsPlug
             }
             for (i in stars.indices) {
                 if (i <= starRate) {
-                    stars[i].setTextColor(Color.parseColor("#2fd696"))
+                    stars[i].setTextColor(Color.parseColor(starColor))
                 } else {
                     stars[i].setTextColor(Color.GRAY)
                 }
@@ -97,9 +109,13 @@ class NativeAdsFactorySmall(private val context: Context) : GoogleMobileAdsPlugi
             .inflate(R.layout.small_native_ads, null) as NativeAdView
 
         with(nativeAdView) {
+            val adTagView = findViewById<TextView>(R.id.ad_text_small_ads)
+            adTagView.setTextColor(Color.parseColor(adTagTextColor))
+            adTagView.setBackgroundColor(Color.parseColor(adTagBackground))
 
             val headlineView = findViewById<TextView>(R.id.headline_small_ads)
             headlineView.text = nativeAd.headline
+            headlineView.setTextColor(Color.parseColor(headlineColor))
             this.headlineView = headlineView
             adsChannel?.invokeMethod("PassAdsData", headlineView.text)
 
@@ -108,11 +124,14 @@ class NativeAdsFactorySmall(private val context: Context) : GoogleMobileAdsPlugi
                 text = nativeAd.body
                 visibility = if (nativeAd.body != null && nativeAd.body!!.isNotEmpty()) View.VISIBLE else View.INVISIBLE
             }
+            bodyView.setTextColor(Color.parseColor(bodyColor))
             this.bodyView = bodyView
             bodyView.clipToOutline = true
 
             val ctaView = findViewById<Button>(R.id.cta_small_ads)
             ctaView.text = nativeAd.callToAction
+            ctaView.setTextColor(Color.parseColor(buttonTextColor))
+            ctaView.background.setColorFilter(Color.parseColor(buttonBackgroundColor), PorterDuff.Mode.SRC)
             this.callToActionView = ctaView
 
             val attributionViewLarge: TextView = nativeAdView
@@ -131,7 +150,6 @@ class NativeAdsFactorySmall(private val context: Context) : GoogleMobileAdsPlugi
     }
 }
 
-
 class NativeAdsFactoryFullSquare(private val context: Context) : GoogleMobileAdsPlugin.NativeAdFactory {
 
     override fun createNativeAd(
@@ -142,7 +160,9 @@ class NativeAdsFactoryFullSquare(private val context: Context) : GoogleMobileAds
             .inflate(R.layout.full_screen_square_ads, null) as NativeAdView
 
         with(nativeAdView) {
-
+            val adTagView = findViewById<TextView>(R.id.ad_text_square_ads)
+            adTagView.setTextColor(Color.parseColor(adTagTextColor))
+            adTagView.setBackgroundColor(Color.parseColor(adTagBackground))
             val mediaView = findViewById<MediaView>(R.id.ad_media_full_screen_square)
             val media = nativeAd.mediaContent
             mediaView.mediaContent = media
@@ -151,6 +171,7 @@ class NativeAdsFactoryFullSquare(private val context: Context) : GoogleMobileAds
 
             val headlineView = findViewById<TextView>(R.id.headline_square_ads)
             headlineView.text = nativeAd.headline
+            headlineView.setTextColor(Color.parseColor(headlineColor))
             this.headlineView = headlineView
             adsChannel?.invokeMethod("PassAdsData", headlineView.text)
 
@@ -159,10 +180,13 @@ class NativeAdsFactoryFullSquare(private val context: Context) : GoogleMobileAds
                 text = nativeAd.body
                 visibility = if (nativeAd.body != null && nativeAd.body!!.isNotEmpty()) View.VISIBLE else View.INVISIBLE
             }
+            bodyView.setTextColor(Color.parseColor(bodyColor))
             this.bodyView = bodyView
 
             val ctaView = findViewById<Button>(R.id.cta_square_ads)
             ctaView.text = nativeAd.callToAction
+            ctaView.setTextColor(Color.parseColor(buttonTextColor))
+            ctaView.background.setColorFilter(Color.parseColor(buttonBackgroundColor), PorterDuff.Mode.SRC)
             this.callToActionView = ctaView
 
             val attributionViewLarge: TextView = nativeAdView
@@ -183,7 +207,6 @@ class NativeAdsFactoryFullSquare(private val context: Context) : GoogleMobileAds
     }
 }
 
-
 class NativeAdsFactoryFullLandScape(private val context: Context) : GoogleMobileAdsPlugin.NativeAdFactory {
 
     override fun createNativeAd(
@@ -194,7 +217,9 @@ class NativeAdsFactoryFullLandScape(private val context: Context) : GoogleMobile
             .inflate(R.layout.full_screen_landscape_ads, null) as NativeAdView
 
         with(nativeAdView) {
-
+            val adTagView = findViewById<TextView>(R.id.ad_text_landscape_ads)
+            adTagView.setTextColor(Color.parseColor(adTagTextColor))
+            adTagView.setBackgroundColor(Color.parseColor(adTagBackground))
             val mediaView = findViewById<MediaView>(R.id.ad_media_full_screen_landscape)
             val media = nativeAd.mediaContent
             mediaView.mediaContent = media
@@ -202,6 +227,7 @@ class NativeAdsFactoryFullLandScape(private val context: Context) : GoogleMobile
 
             val headlineView = findViewById<TextView>(R.id.headline_landscape_ads)
             headlineView.text = nativeAd.headline
+            headlineView.setTextColor(Color.parseColor(headlineColor))
             this.headlineView = headlineView
             adsChannel?.invokeMethod("PassAdsData", headlineView.text)
 
@@ -210,10 +236,13 @@ class NativeAdsFactoryFullLandScape(private val context: Context) : GoogleMobile
                 text = nativeAd.body
                 visibility = if (nativeAd.body != null && nativeAd.body!!.isNotEmpty()) View.VISIBLE else View.INVISIBLE
             }
+            bodyView.setTextColor(Color.parseColor(bodyColor))
             this.bodyView = bodyView
 
             val ctaView = findViewById<Button>(R.id.cta_landscape_ads)
             ctaView.text = nativeAd.callToAction
+            ctaView.setTextColor(Color.parseColor(buttonTextColor))
+            ctaView.background.setColorFilter(Color.parseColor(buttonBackgroundColor), PorterDuff.Mode.SRC)
             this.callToActionView = ctaView
 
             val attributionViewLarge: TextView = nativeAdView
@@ -244,7 +273,9 @@ class NativeAdsFactoryFullPortrait(private val context: Context) : GoogleMobileA
             .inflate(R.layout.full_screen_portrait_ads, null) as NativeAdView
 
         with(nativeAdView) {
-
+            val adTagView = findViewById<TextView>(R.id.ad_text_portrait_ads)
+            adTagView.setTextColor(Color.parseColor(adTagTextColor))
+            adTagView.setBackgroundColor(Color.parseColor(adTagBackground))
             val mediaView = findViewById<MediaView>(R.id.ad_media_full_screen_portrait)
             val media = nativeAd.mediaContent
             mediaView.mediaContent = media
@@ -253,6 +284,7 @@ class NativeAdsFactoryFullPortrait(private val context: Context) : GoogleMobileA
 
             val headlineView = findViewById<TextView>(R.id.headline_portrait_ads)
             headlineView.text = nativeAd.headline
+            headlineView.setTextColor(Color.parseColor(headlineColor))
             this.headlineView = headlineView
             adsChannel?.invokeMethod("PassAdsData", headlineView.text)
 
@@ -261,10 +293,13 @@ class NativeAdsFactoryFullPortrait(private val context: Context) : GoogleMobileA
                 text = nativeAd.body
                 visibility = if (nativeAd.body != null && nativeAd.body!!.isNotEmpty()) View.VISIBLE else View.INVISIBLE
             }
+            bodyView.setTextColor(Color.parseColor(bodyColor))
             this.bodyView = bodyView
 
             val ctaView = findViewById<Button>(R.id.cta_portrait_ads)
             ctaView.text = nativeAd.callToAction
+            ctaView.setTextColor(Color.parseColor(buttonTextColor))
+            ctaView.background.setColorFilter(Color.parseColor(buttonBackgroundColor), PorterDuff.Mode.SRC)
             this.callToActionView = ctaView
 
             val attributionViewLarge: TextView = nativeAdView

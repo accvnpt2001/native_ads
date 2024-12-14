@@ -4,6 +4,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'color_extension.dart';
 
 import 'normal_native_ads.dart';
 
@@ -77,6 +78,13 @@ class PreloadNativeAdsModel {
 class PreloadNativeAds extends StatefulWidget {
   final String name;
   final Color? backgroundColor;
+  final Color buttonBackgroundColor;
+  final Color buttonTextColor;
+  final Color titleColor;
+  final Color subtitleColor;
+  final Color adTagBackgroundColor;
+  final Color adTagTextColor;
+  final Color starColor;
   final Widget? loadingWidget;
   final EdgeInsetsGeometry? padding;
   final double? height;
@@ -85,6 +93,13 @@ class PreloadNativeAds extends StatefulWidget {
     super.key,
     required this.name,
     this.backgroundColor,
+    this.buttonBackgroundColor = const Color(0xFFF5645A),
+    this.buttonTextColor = Colors.white,
+    this.titleColor = Colors.black,
+    this.subtitleColor = Colors.grey,
+    this.adTagBackgroundColor = const Color(0xFFF5645A),
+    this.adTagTextColor = Colors.white,
+    this.starColor = Colors.yellow,
     this.loadingWidget,
     this.padding,
     this.height,
@@ -101,6 +116,16 @@ class _PreloadNativeAdsState extends State<PreloadNativeAds> {
   @override
   void initState() {
     super.initState();
+    const MethodChannel channel = MethodChannel('AdsChannel');
+    channel.invokeMethod('set_color', {
+      "button_bkg": widget.buttonBackgroundColor.colorToHex(),
+      "button_title": widget.buttonTextColor.colorToHex(),
+      "title": widget.titleColor.colorToHex(),
+      "subtitle": widget.subtitleColor.colorToHex(),
+      "ad_tag_bkg": widget.adTagBackgroundColor.colorToHex(),
+      "ad_tag_title": widget.adTagTextColor.colorToHex(),
+      "star_color": widget.starColor.colorToHex(),
+    });
     data = PreloadNativeAdsManager.nativeAds[widget.name];
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _reloadState();

@@ -6,14 +6,10 @@
         </shape>
     </item>
 
-    <item>
+    <item android:id="@+id/background_color">
         <shape android:shape="rectangle">
             <corners android:radius="8dp" />
             <solid android:color="#E6F44336" />
-            <gradient
-                android:startColor="#E6F44336"
-                android:endColor="#E6F44336"
-                android:angle="-90"/>
         </shape>
     </item>
 </layer-list>

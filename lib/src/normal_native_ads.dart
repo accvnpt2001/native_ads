@@ -1,13 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'color_extension.dart';
 
 enum TemplateAdType { small, medium, fullscreenSquare, fullscreenLandScape, fullscreenPortrait }
 
 class NormalAdsNative extends StatefulWidget {
   final TemplateAdType templateType;
   final String adUnitId;
-  final Color? color;
+  final Color? backgroundColor;
+  final Color buttonBackgroundColor;
+  final Color buttonTextColor;
+  final Color titleColor;
+  final Color subtitleColor;
+  final Color adTagBackgroundColor;
+  final Color adTagTextColor;
+  final Color starColor;
   final Widget? loadingWidget;
   final EdgeInsetsGeometry? padding;
   final double? height;
@@ -20,7 +28,14 @@ class NormalAdsNative extends StatefulWidget {
     super.key,
     required this.templateType,
     required this.adUnitId,
-    this.color,
+    this.backgroundColor,
+    this.buttonBackgroundColor = const Color(0xFFF5645A),
+    this.buttonTextColor = Colors.white,
+    this.titleColor = Colors.black,
+    this.subtitleColor = Colors.grey,
+    this.adTagBackgroundColor = const Color(0xFFF5645A),
+    this.adTagTextColor = Colors.white,
+    this.starColor = Colors.yellow,
     this.loadingWidget,
     this.padding,
     this.height,
@@ -45,6 +60,15 @@ class _NormalAdsNativeState extends State<NormalAdsNative> with AutomaticKeepAli
   void initState() {
     super.initState();
     const MethodChannel channel = MethodChannel('AdsChannel');
+    channel.invokeMethod('set_color', {
+      "button_bkg": widget.buttonBackgroundColor.colorToHex(),
+      "button_title": widget.buttonTextColor.colorToHex(),
+      "title": widget.titleColor.colorToHex(),
+      "subtitle": widget.subtitleColor.colorToHex(),
+      "ad_tag_bkg": widget.adTagBackgroundColor.colorToHex(),
+      "ad_tag_title": widget.adTagTextColor.colorToHex(),
+      "star_color": widget.starColor.colorToHex(),
+    });
     channel.setMethodCallHandler((call) async {
       if (call.method == "PassAdsData") {
         final title = call.arguments as String;
@@ -98,7 +122,7 @@ class _NormalAdsNativeState extends State<NormalAdsNative> with AutomaticKeepAli
     return Container(
       padding: widget.padding,
       decoration: BoxDecoration(
-        color: widget.color,
+        color: widget.backgroundColor,
       ),
       child: isNativeAdReady
           ? FittedBox(
